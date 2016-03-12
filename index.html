@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.2.js"></script>
+    <script src="weather.js"></script>
+
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+<!--
+    <link href="ForecastFont/css/base.css" rel="stylesheet">
+    <link href="ForecastFont/css/skeleton.css" rel="stylesheet">
+-->    
+    <link href="weather.css" rel="stylesheet">
+  </head>
+
+  <body ng-app="myApp">
+    <div class="container-fluid typeahead-demo" ng-controller="TypeaheadCtrl">
+      <h1>weather</h1>
+      <pre>Model: {{asyncSelected | json}}</pre>
+      <input type="text" 
+        ng-model="asyncSelected" 
+        placeholder="Locations loaded via $http" 
+        uib-typeahead="address for address in getLocation($viewValue)" 
+        typeahead-loading="loadingLocations" 
+        typeahead-no-results="noResults" 
+        class="form-control">
+
+      <button ng-click="getWeather()">get weather</button>
+      <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+      <div ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>
+
+      <!--
+      <h2><pre>Weather in {{asyncSelected | json}}</pre></h2>
+      -->
+      <br>
+      <h3>Current: {{ weather.temp.current | temp:2 }}</h3>
+      min: {{ weather.temp.min | temp }}<br>
+      max: {{ weather.temp.max | temp }}<br>
+      local time: {{ weather.current_time }}<br>
+      sunrise: {{ weather.sunrise }}<br>
+      sunset: {{ weather.sunset }}<br>
+      latitude: {{ weather.lat }}<br>
+      longitude: {{ weather.lon }}<br>
+      condition: {{ weather.condition_desc }}
+      
+      <weather-icon 
+        cloudiness="{{ weather.condition_code }}" 
+        time="{{ weather.current_time }}"
+        sunrise="{{ weather.sunrise }}"
+        sunset="{{ weather.sunset }}">
+      </weather-icon>
+    </div>
+  </body>
+</html>
