@@ -18,7 +18,9 @@
   <body ng-app="myApp">
     <div class="container-fluid typeahead-demo" ng-controller="TypeaheadCtrl">
       <h1>weather</h1>
+      <!--
       <pre>Model: {{asyncSelected | json}}</pre>
+      -->
       <input type="text" 
         ng-model="asyncSelected" 
         placeholder="Locations loaded via $http" 
@@ -27,7 +29,14 @@
         typeahead-no-results="noResults" 
         class="form-control">
 
-      <button ng-click="getWeather()">get weather</button>
+      <br>
+      <button type="submit" class="btn btn-primary" ng-click="getWeather()">
+        <span ng-show="btnText == 'getting'">
+        <i class="glyphicon glyphicon-refresh spinning"></i>
+        </span> 
+        {{ btnText }}
+      </button>
+
       <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
       <div ng-show="noResults">
         <i class="glyphicon glyphicon-remove"></i> No Results Found

@@ -2,7 +2,8 @@
 
 var myApp = angular.module('myApp', ['ngAnimate', 'ui.bootstrap']);
 myApp.controller('TypeaheadCtrl', function($scope, $http) {
-
+  $scope.btnText = "get weather";
+  //$scope.test = "false";
   // Any function returning a promise object can be used to load values asynchronously
   $scope.getLocation = function(val) {
     return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
@@ -20,6 +21,9 @@ myApp.controller('TypeaheadCtrl', function($scope, $http) {
   $scope.getWeather = function(val) {
     var weather = { temp: {}, clouds: null };
     var city = $scope.asyncSelected;
+    //$scope.test = "true";
+    $scope.btnText = "getting";
+
     $http.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&appid=63fbbe238d2e01a8afb88b52eaeeb5aa'
     ).then(function(response) {
       if (response.data) {
@@ -55,6 +59,8 @@ myApp.controller('TypeaheadCtrl', function($scope, $http) {
         weather.current_time = t.current.split(" ")[1];
         weather.sunrise = t.sunrise.split(" ")[1];
         weather.sunset = t.sunset.split(" ")[1];
+        
+        $scope.btnText = "get weather";
         $scope.weather = weather;
       });
       //return weather;
